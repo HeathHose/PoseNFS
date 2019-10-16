@@ -7,7 +7,7 @@ model:
     backbone_net_name: 'resnet'  # or 'meta_arch' or 'mobilenet_v2'
     backbone_layers: 50 #resnet
     backbone_feature_num: 4 # resnet
-    backbone_pretrained_path: '/path_to_your_pretrained_model/resnet50-19c8e357.pth'
+    backbone_pretrained_path: '/home/supermary/models/pytorch/imagenet/resnet50-19c8e357.pth'
     init_weights: True
 
     dataset_name: 'coco'  # 'mpii'
@@ -58,7 +58,7 @@ model:
 
             search_alpha: true
             search_beta: true
-            operators: ["zero", "skip_connect","Atr_Conv_3x3", "Sep_Conv_3x3"]  #'conv_3x3'] # "Atr_Conv_3x3"
+            operators: ["Zero", "skip_connect","Atr_Conv_3x3", "Sep_Conv_3x3"]  #'conv_3x3'] # "Atr_Conv_3x3"
  
             depth: 7
             cut_layers_num: 4  # first several layers
@@ -68,9 +68,9 @@ model:
             input_nodes_num: 1
 
 
-images_root_dir: '/path_to_your/coco/images/'  # /path_to_your/mpii/images/'
-annotation_root_dir: '/data/dataset/coco/annotations/' # /path_to_your/mpii/annot/'
-person_detection_results_path: '/path_to_your/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json'
+images_root_dir: '/media/harddisk2/datasets/MSCOCO/coco2017/images/'  # /path_to_your/mpii/images/'
+annotation_root_dir: '/media/harddisk2/datasets/MSCOCO/coco2017/annotations/' # /path_to_your/mpii/annot/'
+person_detection_results_path: '/media/harddisk2/datasets/MSCOCO/coco2017/person_detection_results/COCO_val2017_detections_AP_H_56_person.json'
                                  # /path_to_your/mpii/annot/
                                  
 #COCO_test-dev2017_detections_AP_H_609_person

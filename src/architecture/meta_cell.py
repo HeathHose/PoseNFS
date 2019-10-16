@@ -94,7 +94,7 @@ class Cell(nn.Module):
     def __init__(self,pos_i,pos_j, c,  c_prev_parallel, c_prev_above, c_prev_below , c_prev_prev ,hidden_states_num ,
                                                         input_nodes_num = 2, 
                                                         skip = prev_prev_skip,
-                                                        operators_used = ["zero"]):
+                                                        operators_used = ["Zero"]):
         
         super(Cell,self).__init__()
         self.pos = (pos_i,pos_j)
