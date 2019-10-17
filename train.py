@@ -52,7 +52,7 @@ def args():
 def logging_set(output_dir):
 
     logging.basicConfig(filename = os.path.join(output_dir,'train_{}.log'.format(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))),
-                    format = '%(message)s')
+                    format = '%(asctime)-15s %(message)s')
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     console = logging.StreamHandler()

@@ -67,7 +67,7 @@ class Search_Arch:
         :param target_train:
         :param x_valid:
         :param target_valid:
-        :param eta:
+        :param eta:lr
         :param optimizer: theta optimizer
         :param unrolled:
         :return:

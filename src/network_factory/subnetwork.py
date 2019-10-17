@@ -130,6 +130,7 @@ class Sub_Arch(Meta_Arch):
 
                 #prev_prev = prev_prev_layer[i] if i<Num[j-2] else prev_paral
                 #prev_prev = torch.zeros_like(prev_prev) # cancel prev_prev!!
+                #使用one shot search, 那么alphas只有前step*len(state)被使用，也就是被所有的cell共用
                 if self.one_shot_search:
                     output = cell(prev_paral, prev_above, prev_below , prev_prev,
                                     self.alphas, self.betas[cell_id])

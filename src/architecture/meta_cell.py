@@ -34,7 +34,7 @@ class Ops_Combination(nn.Module):
         
         # normalize
         alphas = F.softmax(alphas,dim=-1)
-       
+        # darts的核心实现
         output = len(self.ops_used) *sum([alpha * op(input) for alpha, op in zip(alphas, self.ops)]) #len_use
         return output
 
@@ -50,7 +50,7 @@ class Connection_Combination(nn.Module):
         super(Connection_Combination,self).__init__()
             
     def forward(self,  prev_parallel, prev_above, prev_below ,betas):
-
+        #beta 代表cell之间的权值
         betas = F.softmax(betas,dim=-1)
         mix = 3*betas[0] * prev_parallel + 3*betas[1] *  prev_above + 3*betas[2] *  prev_below   # *3
 
@@ -94,7 +94,7 @@ class Cell(nn.Module):
     def __init__(self,pos_i,pos_j, c,  c_prev_parallel, c_prev_above, c_prev_below , c_prev_prev ,hidden_states_num ,
                                                         input_nodes_num = 2, 
                                                         skip = prev_prev_skip,
-                                                        operators_used = ["zero"]):
+                                                        operators_used = ["Zero"]):
         
         super(Cell,self).__init__()
         self.pos = (pos_i,pos_j)
@@ -111,7 +111,7 @@ class Cell(nn.Module):
 
         # process the input from other cells ,the order is important
         self.skip = skip
-        if skip: # if use prev_prev_cell or not
+        if skip: # if use prev_prev_cell or not  # skip为True 代表添加 prev_prev_cell
             input_source = [c_prev_parallel, c_prev_above, c_prev_below , c_prev_prev]
         else:
             input_source = [c_prev_parallel, c_prev_above, c_prev_below ]
@@ -133,6 +133,7 @@ class Cell(nn.Module):
             
         self.channel_keep = nn.Conv2d(c*self.steps,c,1,1,0)
 
+        # step 代表hidden_states_num,即内部的node数量
         for i in range(self.steps):
             # for each hidden states, 
             # it connect with all input nodes and all previous hidden states (if have)
@@ -150,6 +151,7 @@ class Cell(nn.Module):
         prev_below = self.propress_list[2](prev_below)
         
         states = []
+        #这里说明beta1，beta2，beta3 上几个cell的输出权值 对于当前cell的内部节点是 共用的
         input_node_1 = self.cell_connections(prev_paral, prev_above, prev_below ,betas  )
         states.append(input_node_1)
 
@@ -164,7 +166,8 @@ class Cell(nn.Module):
                 states.append(other_information)
 
         start = 0
-
+        #alphas表示 内部节点 对于上个cell带权输入的 内部权值[a1,a2,a3,b1,b2,b3,...]
+        #不同的内部节点之间没有进行 sum操作
         for i in range(self.steps):
 
             hidden_state = sum(
@@ -180,7 +183,7 @@ class Cell(nn.Module):
         else:
             output_node = states[-1]
 
-            # c*hidden_states_num  -> c 
+        # c*hidden_states_num  -> c
         output_node = self.channel_keep(output_node)
         
 

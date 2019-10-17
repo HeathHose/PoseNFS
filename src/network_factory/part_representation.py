@@ -69,7 +69,8 @@ class Body_Part_Representation(nn.Module):
             # put the feature map of backbone to repalce the specified position of Sub_Arch
             input_position = self.groups[i].cut_layers_num - 1
 
-            # indicate the group how many feature maps are send to the group 
+            # indicate the group how many feature maps are send to the group
+            # fabrics 被裁剪掉，替换成backbone的输入
             self.groups[i].Num[ input_position ]  = backbone_feature_num
 
             # take Channels[0] to compare

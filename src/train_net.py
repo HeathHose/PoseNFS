@@ -57,7 +57,7 @@ def train(epoch, train_queue, arch_queue ,model,search_arch,criterion,optimizer,
         if iters % 100 == 0:
             # torch.cuda.empty_cache()
             if args.debug:
-
+                # 使用x而不是 kpts，说明x已经被改变了
                 save_batch_image_with_joints(   x,
                                                 train_info['keypoints'],
                                                 train_kpt_visible.unsqueeze(-1).cpu(),

@@ -23,7 +23,7 @@ def Constrcut_Cells_Fabrics(depth=8,
                             tpyes_=[4,8,16,32],
                             Channels=10*[4,8,16,32],
                             hidden_num=1, 
-                            operators_used=['zero','skip_connect'], 
+                            operators_used=['Zero','skip_connect'],
                             concat_factor = 1, 
                             skip = False ):
     """
@@ -53,7 +53,7 @@ def Constrcut_Cells_Fabrics(depth=8,
             if j == 0:
                 # c means channel inside the cell
                 c = Channels[i]
-
+                #prev_prev代表previous-previous-parallel
                 c_prev_parallel  = c if i==0 else Channels[i-1]
                 c_prev_above = c if i==0 else Channels[i-1]
                 c_prev_below = c if i==0 else Channels[i-1]

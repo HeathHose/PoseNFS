@@ -58,7 +58,7 @@ model:
 
             search_alpha: true
             search_beta: true
-            operators: ["zero", "skip_connect","Atr_Conv_3x3", "Sep_Conv_3x3"]  #'conv_3x3'] # "Atr_Conv_3x3"
+            operators: ["Zero", "skip_connect","Atr_Conv_3x3", "Sep_Conv_3x3"]  #'conv_3x3'] # "Atr_Conv_3x3"
  
             depth: 7
             cut_layers_num: 4  # first several layers

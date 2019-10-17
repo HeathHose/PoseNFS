@@ -65,7 +65,7 @@ class Meta_Arch(nn.Module):
 
         # channel number varys in different cell size types (not in depth)
         self.Channels = [i*self.F for i in self.cell_size_types]
-
+        ### channels 64,128,256,512]
         self.stem = nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=3, stride=2, padding=1, bias=False),
             nn.BatchNorm2d(64, momentum=0.1),
@@ -108,6 +108,7 @@ class Meta_Arch(nn.Module):
         ############
         self.Num = Num # N is a list store the number of cells in each layer j
         self.cells_num = sum(Num)
+        # N代表ceil内部的节点数  I代表外部输入的个数; K代表N×I
         self.k = sum(1 for i in range(self.N) for j in range(self.I + i)) #  2  input nodes
         self.num_ops = len(self.operators_used) # 8
         self.types_c = len(Connections)
@@ -143,6 +144,7 @@ class Meta_Arch(nn.Module):
         prev_prev_layer = []
         prev_layer = []
 
+        #如果上一层不存在相对应位置的特征，使用上一层底部的特征
         # cell_fabrics = [layer1 , layer2, layer3,...]
         cell_id = 0
         for j in range(self.arch_depth):
